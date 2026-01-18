@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JACKY'S CLOTHES | AHMEDABAD</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f8f8;
+            font-family: 'Impact', 'fantasy';
+            overflow-x: hidden;
+            color: #1a1a1a;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: black;
+            text-decoration: none;
+            padding: 25px 40px;
+            font-size: 24px;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav a:hover {
+            background-color: black;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 15px 15px 15px 0px #ff003c;
+        }
+
+        .main-container {
+            height: 90vh;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background-shout {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .shout-word {
+            font-size: 18vw;
+            line-height: 0.75;
+            color: transparent;
+            -webkit-text-stroke: 2px #272323;
+            text-transform: uppercase;
+            letter-spacing: -5px;
+            animation: drift 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            from {
+                transform: translateX(-25px);
+            }
+
+            to {
+                transform: translateX(25px);
+            }
+        }
+
+        .middle-part {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .middle-part h1 {
+            font-size: 9vw;
+            margin: 0;
+            letter-spacing: 25px;
+            color: white;
+            background: black;
+            padding: 10px 40px;
+            box-shadow: 15px 15px 15px 0px #ff003c;
+
+        }
+
+
+        .middle-part a {
+            text-decoration: none;
+            display: inline-block;
+            /* Helps maintain the shadow and padding area */
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .middle-part a:hover h1 {
+            background-color: #ff003c;
+            /* Optional: Change color on hover for better UX */
+            box-shadow: 15px 15px 15px 0px black;
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+
+        .info-left,
+        .info-right {
+            position: relative;
+            z-index: 20;
+            max-width: 250px;
+        }
+
+        .info-right {
+            text-align: right;
+        }
+
+        h3 {
+            margin: 5px 0;
+            font-weight: normal;
+            font-size: 18px;
+            letter-spacing: 1px;
+            background: white;
+            display: inline-block;
+            padding: 2px 8px;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 40px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 100;
+        }
+
+        .footer-brand h2 {
+            margin: 0;
+            font-size: 32px;
+            letter-spacing: 2px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-family: sans-serif;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="HOME.html">HOME</a>
+        <a href="ABOUT.html">ABOUT</a>
+        <a href="CONTACT.html">CONTACT</a>
+        <a href="SIGNUP.html">SIGNUP</a>
+    </nav>
+
+    <div class="main-container">
+        <div class="background-shout">
+            <div class="shout-word">PREMIUM</div>
+            <br>
+            <div class="shout-word">QUALITY</div>
+        </div>
+
+        <div class="info-left">
+            <h3>JACKY'S CLOTHES</h3>
+            <br>
+            <h3>EST. 2000</h3>
+            <br>
+            <h3>GUJARAT, INDIA</h3>
+        </div>
+
+        <div class="middle-part">
+            <a href="BIO.html" style="text-decoration: none;">
+                <h1>HOODIES</h1>
+            </a>
+        </div>
+
+        <div class="info-right">
+            <h3>BY JACK</h3>
+            <br>
+            <h3>&copy; 2025</h3>
+            <br>
+            <h3>ALL RIGHTS RESERVED</h3>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-brand">
+            <h2>JACKY'S.</h2>
+            <p style="font-family: sans-serif; font-size: 12px; color: #555;">MADE IN INDIA</p>
+        </div>
+        <div class="footer-links">
+            <a href="#"> <i class="fa fa-instagram"></i>INSTAGRAM</a>
+            <a href="#"> <i class="fa fa-facebook"></i>FACEBOOK</a>
+            <a href="#"><i class="fa fa-twitter"></i>TWITTER</a>
+            <a href="#">PRIVACY</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>

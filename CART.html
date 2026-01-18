@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOUR BAG | JACKY'S</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            background-color: #f8f8f8;
+            font-family: 'Impact', 'fantasy';
+            color: #1a1a1a;
+        }
+
+        /* --- NAV --- */
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: black;
+            text-decoration: none;
+            padding: 25px 40px;
+            font-size: 24px;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav a:hover {
+            background-color: black;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 15px 15px 15px 0px #ff003c;
+        }
+
+        /* --- CART LAYOUT --- */
+        .cart-wrapper {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            text-transform: uppercase;
+            border-bottom: 10px solid black;
+            display: inline-block;
+            margin-bottom: 40px;
+        }
+
+        .cart-item {
+            display: flex;
+            background: white;
+            border: 5px solid black;
+            padding: 20px;
+            gap: 30px;
+            align-items: center;
+            box-shadow: 15px 15px 0px #ff003c;
+            margin-bottom: 30px;
+        }
+
+        .product-image {
+            width: 200px;
+            height: 250px;
+            background-color: #eee;
+            background-size: cover;
+            background-position: center;
+            border: 3px solid black;
+            flex-shrink: 0;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-details h2 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .product-details p {
+            font-family: sans-serif;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            color: #ff003c;
+        }
+
+        .remove-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: 'Impact';
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .empty-msg {
+            font-size: 2rem;
+            text-align: center;
+            margin-top: 100px;
+            opacity: 0.3;
+        }
+
+        .checkout-bar {
+            margin-top: 50px;
+            text-align: right;
+            border-top: 5px solid black;
+            padding-top: 20px;
+        }
+
+        .checkout-btn {
+            background: black;
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 24px;
+            font-family: 'Impact';
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #ff003c;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="HOME.html">HOME</a>
+        <a href="CART.html">CART</a>
+        <a href="CONTACT.html">CONTACT</a>
+    </nav>
+
+    <div class="cart-wrapper">
+        <h1>YOUR BAG</h1>
+
+        <div id="cartDisplay"></div>
+
+        <div class="checkout-bar" id="checkoutBar" style="display: none;">
+            <h2 id="totalPriceDisplay">TOTAL: ₹0</h2>
+            <button class="checkout-btn" onclick="window.location.href='CHECKOUT.html'">PROCEED TO PAY</button>
+        </div>
+    </div>
+
+    <script>
+        function displayCart() {
+            const cartDisplay = document.getElementById('cartDisplay');
+            const checkoutBar = document.getElementById('checkoutBar');
+            const totalPriceDisplay = document.getElementById('totalPriceDisplay');
+
+            const item = JSON.parse(localStorage.getItem('cartItem'));
+
+            if (item) {
+                checkoutBar.style.display = 'block';
+                totalPriceDisplay.innerText = "TOTAL: " + item.price; // Sync total price
+                cartDisplay.innerHTML = `
+                    <div class="cart-item">
+                        <div class="product-image" style="background-image: ${item.img}"></div>
+                        <div class="product-details">
+                            <h2>${item.name}</h2>
+                            <p>SIZE: OVERSIZED | COLOR: ORIGINAL</p>
+                            <div class="price-tag">${item.price}</div>
+                            <button class="remove-btn" onclick="clearCart()">REMOVE ITEM</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                cartDisplay.innerHTML = `<div class="empty-msg">YOUR BAG IS EMPTY...</div>`;
+                checkoutBar.style.display = 'none';
+            }
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cartItem');
+            localStorage.setItem('cartCount', 0);
+            displayCart();
+            alert("Item Removed");
+        }
+
+        displayCart();
+    </script>
+</body>
+
+</html>

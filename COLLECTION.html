@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COLLECTION | JACKY'S</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            background-color: #f8f8f8;
+            font-family: 'Impact', sans-serif;
+            color: #1a1a1a;
+        }
+
+        /* NAV */
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: black;
+            text-decoration: none;
+            padding: 25px 40px;
+            font-size: 24px;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav a:hover {
+            background-color: black;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 15px 15px 15px 0px #ff003c;
+        }
+
+        /* HEADER */
+        .collection-header {
+            padding: 40px 20px;
+            text-align: center;
+            background: #000;
+            color: #fff;
+        }
+
+        .collection-header h1 {
+            font-size: 5vw;
+            margin: 0;
+            letter-spacing: 5px;
+        }
+
+        /* FILTER BAR */
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: #fff;
+            border-bottom: 3px solid black;
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid black;
+            padding: 8px 25px;
+            cursor: pointer;
+            font-family: 'Impact';
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #ff003c;
+            color: white;
+            border-color: #ff003c;
+        }
+
+        /* GRID */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border: 4px solid black;
+            padding: 15px;
+            transition: 0.3s;
+            cursor: pointer;
+            display: block;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 12px 12px 0px #ff003c;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 380px;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .price {
+            font-size: 1.4rem;
+            color: #ff003c;
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            width: 80%;
+            max-width: 800px;
+            display: flex;
+            border: 5px solid black;
+            position: relative;
+        }
+
+        .modal-img-display {
+            width: 50%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .modal-info {
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .buy-btn {
+            background: black;
+            color: white;
+            padding: 15px;
+            font-family: 'Impact';
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="HOME.html">HOME</a>
+        <a href="COLLECTION.html">COLLECTION</a>
+        <a href="CART.html">CART</a>
+        <a href="CONTACT.html">CONTACT</a>
+    </nav>
+
+    <div class="collection-header">
+        <h1>FULL DROPS</h1>
+    </div>
+
+    <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterSelection('all')">ALL</button>
+        <button class="filter-btn" onclick="filterSelection('tee')">TEES</button>
+        <button class="filter-btn" onclick="filterSelection('hoodie')">HOODIES</button>
+        <button class="filter-btn" onclick="filterSelection('bottom')">BOTTOMS</button>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card filter-item tee" data-name="STREET LOGO TEE" data-price="₹1,499" data-img="IMG1.jpg">
+            <div class="product-img" style="background-image: url('IMG1.jpg')"></div>
+            <div class="product-info">
+                <h2>STREET LOGO TEE</h2>
+                <div class="price">₹1,499</div>
+            </div>
+        </div>
+        <div class="product-card filter-item tee" data-name="OVERSIZED CORE" data-price="₹1,299" data-img="IMG2.jpg">
+            <div class="product-img" style="background-image: url('IMG2.jpg')"></div>
+            <div class="product-info">
+                <h2>OVERSIZED CORE</h2>
+                <div class="price">₹1,299</div>
+            </div>
+        </div>
+        <div class="product-card filter-item tee" data-name="GRAPHIC REBEL" data-price="₹1,599" data-img="IMG5.jpg">
+            <div class="product-img" style="background-image: url('IMG5.jpg')"></div>
+            <div class="product-info">
+                <h2>GRAPHIC REBEL</h2>
+                <div class="price">₹1,599</div>
+            </div>
+        </div>
+        <div class="product-card filter-item tee" data-name="VINTAGE WASH" data-price="₹1,699" data-img="IMG6.jpg">
+            <div class="product-img" style="background-image: url('IMG6.jpg')"></div>
+            <div class="product-info">
+                <h2>VINTAGE WASH</h2>
+                <div class="price">₹1,699</div>
+            </div>
+        </div>
+
+        <div class="product-card filter-item hoodie" data-name="HEAVYWEIGHT HOODIE" data-price="₹2,999"
+            data-img="IMG3.jpg">
+            <div class="product-img" style="background-image: url('IMG3.jpg')"></div>
+            <div class="product-info">
+                <h2>HEAVY HOODIE</h2>
+                <div class="price">₹2,999</div>
+            </div>
+        </div>
+        <div class="product-card filter-item hoodie" data-name="ZIP-UP JACKY" data-price="₹3,499" data-img="IMG4.jpg">
+            <div class="product-img" style="background-image: url('IMG4.jpg')"></div>
+            <div class="product-info">
+                <h2>ZIP-UP JACKY</h2>
+                <div class="price">₹3,499</div>
+            </div>
+        </div>
+        <div class="product-card filter-item hoodie" data-name="BOX LOGO HOODIE" data-price="₹2,799"
+            data-img="IMG7.jpg">
+            <div class="product-img" style="background-image: url('IMG7.jpg')"></div>
+            <div class="product-info">
+                <h2>BOX LOGO</h2>
+                <div class="price">₹2,799</div>
+            </div>
+        </div>
+        <div class="product-card filter-item hoodie" data-name="ACID WASH HOOD" data-price="₹3,199" data-img="IMG8.jpg">
+            <div class="product-img" style="background-image: url('IMG8.jpg')"></div>
+            <div class="product-info">
+                <h2>ACID WASH</h2>
+                <div class="price">₹3,199</div>
+            </div>
+        </div>
+
+        <div class="product-card filter-item bottom" data-name="CARGO V1" data-price="₹2,299" data-img="IMG11.jpg">
+            <div class="product-img" style="background-image: url('IMG11.jpg')"></div>
+            <div class="product-info">
+                <h2>CARGO V1</h2>
+                <div class="price">₹2,299</div>
+            </div>
+        </div>
+        <div class="product-card filter-item bottom" data-name="STREET JOGGERS" data-price="₹1,899"
+            data-img="IMG12.jpg">
+            <div class="product-img" style="background-image: url('IMG12.jpg')"></div>
+            <div class="product-info">
+                <h2>STREET JOGGERS</h2>
+                <div class="price">₹1,899</div>
+            </div>
+        </div>
+        <div class="product-card filter-item bottom" data-name="RELAXED DENIM" data-price="₹2,599" data-img="IMG13.jpg">
+            <div class="product-img" style="background-image: url('IMG13.jpg')"></div>
+            <div class="product-info">
+                <h2>RELAXED DENIM</h2>
+                <div class="price">₹2,599</div>
+            </div>
+        </div>
+        <div class="product-card filter-item bottom" data-name="UTILITY SHORTS" data-price="₹1,499"
+            data-img="IMG14.jpg">
+            <div class="product-img" style="background-image: url('IMG14.jpg')"></div>
+            <div class="product-info">
+                <h2>UTILITY SHORTS</h2>
+                <div class="price">₹1,499</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <div class="modal-img-display" id="modalImg"></div>
+            <div class="modal-info">
+                <h2 id="modalTitle">PRODUCT NAME</h2>
+                <p>JACKY'S EXCLUSIVE DROP | MADE IN INDIA</p>
+                <h3 id="modalPrice" style="font-size: 32px;">₹0</h3>
+                <button class="buy-btn" id="addToCart">ADD TO CART</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function filterSelection(c) {
+            var x, i;
+            x = document.getElementsByClassName("filter-item");
+            if (c == "all") c = "";
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+                if (x[i].className.indexOf(c) > -1) {
+                    x[i].style.display = "block";
+                }
+            }
+            var btns = document.getElementsByClassName("filter-btn");
+            for (var j = 0; j < btns.length; j++) {
+                btns[j].classList.remove("active");
+            }
+            event.currentTarget.classList.add("active");
+        }
+
+        const modal = document.getElementById("productModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalPrice = document.getElementById("modalPrice");
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.onclick = function () {
+                modalImg.style.backgroundImage = `url('${this.getAttribute('data-img')}')`;
+                modalTitle.innerText = this.getAttribute('data-name');
+                modalPrice.innerText = this.getAttribute('data-price');
+                modal.style.display = "block";
+            }
+        });
+
+        document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+
+        document.getElementById("addToCart").onclick = function () {
+            const product = {
+                name: modalTitle.innerText,
+                img: modalImg.style.backgroundImage,
+                price: modalPrice.innerText
+            };
+            localStorage.setItem('cartItem', JSON.stringify(product));
+            this.innerText = "ADDED!";
+            setTimeout(() => { modal.style.display = "none"; this.innerText = "ADD TO CART"; }, 800);
+        };
+    </script>
+</body>
+
+</html>

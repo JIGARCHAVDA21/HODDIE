@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGNUP | JACKY'S CLOTHES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            background-color: #f8f8f8;
+            font-family: 'Impact', 'fantasy';
+            color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: black;
+            text-decoration: none;
+            padding: 25px 40px;
+            font-size: 24px;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav a:hover {
+            background-color: black;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 15px 15px 15px 0px #ff003c;
+        }
+
+
+
+
+        /* Signup Container */
+        .signup-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        .signup-box {
+            background: white;
+            border: 4px solid black;
+            padding: 50px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 20px 20px 0px #ff003c;
+            /* Signature Shadow */
+        }
+
+        .signup-box h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            text-align: center;
+            letter-spacing: 5px;
+            background: black;
+            color: white;
+            padding: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            box-sizing: border-box;
+            border: 3px solid black;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .input-group input:focus {
+            background-color: #eee;
+        }
+
+        .signup-btn {
+            width: 100%;
+            background: black;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-family: 'Impact', 'fantasy';
+            font-size: 24px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .signup-btn:hover {
+            background: #ff003c;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 40px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <a href="HOME.html">HOME</a>
+        <a href="ABOUT.html">ABOUT</a>
+        <a href="CONTACT.html">CONTACT</a>
+        <a href="SIGNUP.html">SIGNUP</a>
+    </nav>
+
+    <div class="signup-container">
+        <div class="signup-box">
+            <h1>JOIN THE CREW</h1>
+
+            <form action="INDEX.html">
+                <div class="input-group">
+                    <i class="fa fa-user"></i>
+                    <input type="text" placeholder="ID" required id="id">
+                </div>
+
+                <div class="input-group">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" placeholder="PASSWORD" required id="password">
+                </div>
+
+                <button type="submit" onclick="validate_login()" class="signup-btn">LOG IN</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-brand" style="display: flex; align-items: center; gap: 15px;">
+            <i class="fa fa-shopping-bag" style="font-size: 40px; color: #ff003c;"></i>
+            <div>
+                <h2 style="margin: 0; font-size: 24px;">JACKY'S.</h2>
+                <p style="font-family: sans-serif; font-size: 10px; color: #555; margin: 0;">MADE IN INDIA</p>
+            </div>
+        </div>
+        <div style="font-family: sans-serif; font-size: 12px; color: #888;">
+            <i class="fa fa-instagram"></i>
+            <i class="fa fa-facebook" style="margin: 0 15px;"></i>
+            <i class="fa fa-twitter"></i>
+        </div>
+    </footer>
+    <script>
+function validate_login(){
+    var id=document.getElementById("id").value;
+    var password=document.getElementById("password").value;
+
+    var coid="JACKY";
+    var copassword="JACKY.5050";
+
+    if (id===""){
+        alert("PLEASE ENTER YOUR ID");
+        return false;
+    }
+
+    if (password===""){
+        alert("PLEASE ENTER YOUR PASSWORD");
+        return false;
+    }
+
+    if(id === coid && password===copassword){
+        alert("LOGIN SUCCESSFULLY");
+        window.location.href = "INDEX.html";
+    }
+}
+    </script>
+
+</body>
+
+</html>
