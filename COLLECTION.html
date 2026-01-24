@@ -322,50 +322,60 @@
     </div>
 
     <script>
-        function filterSelection(c) {
-            var x, i;
-            x = document.getElementsByClassName("filter-item");
-            if (c == "all") c = "";
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-                if (x[i].className.indexOf(c) > -1) {
-                    x[i].style.display = "block";
-                }
-            }
-            var btns = document.getElementsByClassName("filter-btn");
-            for (var j = 0; j < btns.length; j++) {
-                btns[j].classList.remove("active");
-            }
-            event.currentTarget.classList.add("active");
+    // 1. Filtering Logic
+    function filterSelection(c) {
+        var x = document.getElementsByClassName("filter-item");
+        if (c == "all") c = "";
+        for (var i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+            if (x[i].className.indexOf(c) > -1) x[i].style.display = "block";
         }
+        var btns = document.getElementsByClassName("filter-btn");
+        for (var j = 0; j < btns.length; j++) {
+            btns[j].classList.remove("active");
+        }
+        if(event) event.currentTarget.classList.add("active");
+    }
 
-        const modal = document.getElementById("productModal");
-        const modalImg = document.getElementById("modalImg");
-        const modalTitle = document.getElementById("modalTitle");
-        const modalPrice = document.getElementById("modalPrice");
+    const modal = document.getElementById("productModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    let currentImgPath = ""; // Global variable to store the filename
 
-        document.querySelectorAll('.product-card').forEach(card => {
-            card.onclick = function () {
-                modalImg.style.backgroundImage = `url('${this.getAttribute('data-img')}')`;
-                modalTitle.innerText = this.getAttribute('data-name');
-                modalPrice.innerText = this.getAttribute('data-price');
-                modal.style.display = "block";
-            }
-        });
+    // 2. Open Modal Logic
+    document.querySelectorAll('.product-card').forEach(card => {
+        card.onclick = function () {
+            currentImgPath = this.getAttribute('data-img'); // Get "IMG1.jpg"
+            modalImg.style.backgroundImage = "url('" + currentImgPath + "')";
+            modalTitle.innerText = this.getAttribute('data-name');
+            modalPrice.innerText = this.getAttribute('data-price');
+            modal.style.display = "block";
+        }
+    });
 
-        document.getElementById("closeModal").onclick = () => modal.style.display = "none";
+    document.getElementById("closeModal").onclick = () => modal.style.display = "none";
 
-        document.getElementById("addToCart").onclick = function () {
-            const product = {
-                name: modalTitle.innerText,
-                img: modalImg.style.backgroundImage,
-                price: modalPrice.innerText
-            };
-            localStorage.setItem('cartItem', JSON.stringify(product));
-            this.innerText = "ADDED!";
-            setTimeout(() => { modal.style.display = "none"; this.innerText = "ADD TO CART"; }, 800);
+    // 3. Add to Cart Logic (THE FIX)
+    document.getElementById("addToCart").onclick = function () {
+        const product = {
+            id: Date.now(),
+            name: modalTitle.innerText,
+            imgFile: currentImgPath, // Saves just the filename: "IMG1.jpg"
+            price: modalPrice.innerText
         };
-    </script>
+
+        let cart = JSON.parse(localStorage.getItem('jackysCart')) || [];
+        cart.push(product);
+        localStorage.setItem('jackysCart', JSON.stringify(cart));
+
+        this.innerText = "ADDED!";
+        setTimeout(() => { 
+            modal.style.display = "none"; 
+            this.innerText = "ADD TO CART"; 
+        }, 800);
+    };
+</script>
 </body>
 
 </html>
