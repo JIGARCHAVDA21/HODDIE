@@ -58,6 +58,10 @@
             margin-bottom: 40px;
         }
 
+        #cartDisplay {
+            min-height: 200px;
+        }
+
         .cart-item {
             display: flex;
             background: white;
@@ -67,6 +71,7 @@
             align-items: center;
             box-shadow: 15px 15px 0px #ff003c;
             margin-bottom: 30px;
+            transition: 0.3s;
         }
 
         .product-image {
@@ -93,11 +98,13 @@
             font-family: sans-serif;
             font-weight: bold;
             color: #555;
+            margin: 10px 0;
         }
 
         .price-tag {
             font-size: 2rem;
             color: #ff003c;
+            margin-bottom: 15px;
         }
 
         .remove-btn {
@@ -108,14 +115,19 @@
             cursor: pointer;
             font-family: 'Impact';
             font-size: 1rem;
-            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: #ff003c;
         }
 
         .empty-msg {
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-align: center;
             margin-top: 100px;
             opacity: 0.3;
+            letter-spacing: 2px;
         }
 
         .checkout-bar {
@@ -123,6 +135,12 @@
             text-align: right;
             border-top: 5px solid black;
             padding-top: 20px;
+            padding-bottom: 100px;
+        }
+
+        #totalPriceDisplay {
+            font-size: 3rem;
+            margin-bottom: 20px;
         }
 
         .checkout-btn {
@@ -147,6 +165,7 @@
 
     <nav class="nav">
         <a href="HOME.html">HOME</a>
+        <a href="COLLECTION.html">COLLECTION</a>
         <a href="CART.html">CART</a>
         <a href="CONTACT.html">CONTACT</a>
     </nav>
@@ -163,42 +182,56 @@
     </div>
 
     <script>
-        function displayCart() {
-            const cartDisplay = document.getElementById('cartDisplay');
-            const checkoutBar = document.getElementById('checkoutBar');
-            const totalPriceDisplay = document.getElementById('totalPriceDisplay');
+    function displayCart() {
+        const cartDisplay = document.getElementById('cartDisplay');
+        const checkoutBar = document.getElementById('checkoutBar');
+        const totalPriceDisplay = document.getElementById('totalPriceDisplay');
 
-            const item = JSON.parse(localStorage.getItem('cartItem'));
+        // Get the items
+        const cart = JSON.parse(localStorage.getItem('jackysCart')) || [];
 
-            if (item) {
-                checkoutBar.style.display = 'block';
-                totalPriceDisplay.innerText = "TOTAL: " + item.price; // Sync total price
-                cartDisplay.innerHTML = `
+        if (cart.length > 0) {
+            checkoutBar.style.display = 'block';
+            let cartHTML = "";
+            let totalSum = 0;
+
+            cart.forEach((item, index) => {
+                // Calculate Total Price
+                const priceValue = parseInt(item.price.replace(/[^\d]/g, ''));
+                totalSum += priceValue;
+
+                // Build HTML - We put the filename back into url() here
+                cartHTML += `
                     <div class="cart-item">
-                        <div class="product-image" style="background-image: ${item.img}"></div>
+                        <div class="product-image" style="background-image: url('${item.imgFile}'); background-size: cover; background-position: center;"></div>
                         <div class="product-details">
                             <h2>${item.name}</h2>
-                            <p>SIZE: OVERSIZED | COLOR: ORIGINAL</p>
+                            <p>SIZE: OVERSIZED | PREMIUM QUALITY</p>
                             <div class="price-tag">${item.price}</div>
-                            <button class="remove-btn" onclick="clearCart()">REMOVE ITEM</button>
+                            <button class="remove-btn" onclick="removeItem(${index})">REMOVE ITEM</button>
                         </div>
                     </div>
                 `;
-            } else {
-                cartDisplay.innerHTML = `<div class="empty-msg">YOUR BAG IS EMPTY...</div>`;
-                checkoutBar.style.display = 'none';
-            }
-        }
+            });
 
-        function clearCart() {
-            localStorage.removeItem('cartItem');
-            localStorage.setItem('cartCount', 0);
-            displayCart();
-            alert("Item Removed");
+            cartDisplay.innerHTML = cartHTML;
+            totalPriceDisplay.innerText = "TOTAL: ₹" + totalSum.toLocaleString('en-IN');
+        } else {
+            cartDisplay.innerHTML = `<div class="empty-msg">YOUR BAG IS EMPTY...</div>`;
+            checkoutBar.style.display = 'none';
         }
+    }
 
+    function removeItem(index) {
+        let cart = JSON.parse(localStorage.getItem('jackysCart')) || [];
+        cart.splice(index, 1);
+        localStorage.setItem('jackysCart', JSON.stringify(cart));
         displayCart();
-    </script>
+    }
+
+    // Call function on load
+    displayCart();
+</script>
 </body>
 
 </html>
